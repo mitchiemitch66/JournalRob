@@ -1,0 +1,44 @@
+warning: in the working copy of 'main.py', LF will be replaced by CRLF the next time Git touches it
+[1mdiff --git a/main.py b/main.py[m
+[1mindex 95ba46a..6947eb7 100644[m
+[1m--- a/main.py[m
+[1m+++ b/main.py[m
+[36m@@ -1,8 +1,32 @@[m
+[31m-a = 5[m
+[31m-b = 5[m
+[32m+[m[32mimport json[m
+[32m+[m[32mfrom pathlib import Path[m
+ [m
+[31m-def main(a,b):[m
+[31m-    print(a*b)[m
+[32m+[m[32mDB_FILE = Path("journal.json")[m
+[32m+[m[32mDB_FILE.touch(exist_ok=True)[m
+ [m
+[32m+[m[32m# 📝 Define a JournalEntry class with title, content, and date[m
+[32m+[m
+[32m+[m[32mdef load_entries():[m
+[32m+[m[32m    """Load journal entries from the JSON file."""[m
+[32m+[m
+[32m+[m[41m    [m
+[32m+[m[32mdef save_entries(entries):[m
+[32m+[m[32m    """Save journal entries to the JSON file."""[m
+[32m+[m
+[32m+[m[41m    [m
+[32m+[m[32mdef add_entry(title, content):[m
+[32m+[m[32m    """Create a new journal entry and save it to the JSON file."""[m
+[32m+[m
+[32m+[m[41m    [m
+[32m+[m[32mdef list_entries(entries):[m
+[32m+[m[32m    """Print all journal entries to the console."""[m
+[32m+[m
+[32m+[m[41m    [m
+ if __name__ == "__main__":[m
+[31m-    main(a,b)[m
+[32m+[m[32m    # quick interactive program (entry point) to validate the above[m
+[32m+[m[32m    title = input("Title: ")[m
+[32m+[m[32m    content = input("Content: ")[m
+[32m+[m[32m    add_entry(title, content)[m
+[32m+[m[32m    print("✅ Entry saved.")[m
+[32m+[m[32m    print("\n📘 Your Journal:")[m
+[32m+[m[32m    list_entries(load_entries())[m
+\ No newline at end of file[m

@@ -6,7 +6,16 @@ DB_FILE = Path("journal.json")
 DB_FILE.touch(exist_ok=True)
 
 # 📝 Define a JournalEntry class with title, content, and date
+
+class JournalEntry:
+    title: str
+    content: str
+    date: int
+
+    
 def load_entries():
+    l = open("jounral.json")
+    
     """Load journal entries from the JSON file."""
 
     

@@ -12,35 +12,51 @@ DB_FILE.touch(exist_ok=True)
 class JournalEntry:
         title: str
         content: str
-        entry_number: int
+        date: datetime
+
+dict_journal_entry = {
+     "title": "Rob's Journal Entry",
+     "content": "This is the content of my journal entry",
+     "date": (2025,6,23)
+}
+
+entry = JournalEntry(**dict_journal_entry)
         
-def load_entries():
-    """Load journal entries from the JSON file."""
+def load_entries() -> str: 
+        with open('journal.json', "r") as user_file:
+         journal_content = user_file.read()
+        print(journal_content)
+"""Load journal entries from the JSON file."""
 
     
-def save_entries(entries):
+def save_entries(entries: dict[JournalEntry]) -> str:
+        with open("journal.json","w") as json_file:
+             json.dump(dict_journal_entry,json_file)
         """Save journal entries to the JSON file."""
 
     
-def add_entry(title, content):
+def add_entry(title, content) -> str:
+    save_entries(dict_journal_entry)
+    return
     """Create a new journal entry and save it to the JSON file."""
 
     
-def list_entries(entries):
+def list_entries(entries) -> str:
+    #print(dict_journal_entry)
+    return
     """Print all journal entries to the console."""
 
-journal_one = JournalEntry("Rob's Journal Entry","You just completed a journal entry",1)
-today = datetime.today()
+
 
     
 if __name__ == "__main__":
     # quick interactive program (entry point) to validate the above
     title = input("Title: ")
     content = input("Content: ")
+    date = input("Today's date: ")
     add_entry(title, content)
     print("✅ Entry saved.")
     print("\n📘 Your Journal:")
     list_entries(load_entries())
-    eval(repr(journal_one))
-    print(journal_one)
-    print("Journal entry date: ", today)
+    print(entry)
+   

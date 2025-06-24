@@ -14,13 +14,8 @@ class JournalEntry:
         content: str
         date: datetime
 
-dict_journal_entry = {
-     "title": "Rob's Journal Entry",
-     "content": "This is the content of my journal entry",
-     "date": (2025,6,23)
-}
+dict_journal_entry = {}
 
-entry = JournalEntry(**dict_journal_entry)
         
 def load_entries() -> str: 
         with open('journal.json', "r") as user_file:
@@ -58,5 +53,5 @@ if __name__ == "__main__":
     print("✅ Entry saved.")
     print("\n📘 Your Journal:")
     list_entries(load_entries())
-    print(entry)
+    
    

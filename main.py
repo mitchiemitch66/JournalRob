@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, asdict
 import json
 from datetime import datetime
 from pathlib import Path
@@ -13,45 +13,51 @@ class JournalEntry:
         title: str
         content: str
         date: datetime
-
-dict_journal_entry = {}
-
         
-def load_entries() -> str: 
-        with open('journal.json', "r") as user_file:
-         journal_content = user_file.read()
+def load_entries() -> list[JournalEntry]: 
+        try:
+                with open("journal.json","r") as user_file:
+                        journal_content = user_file.read()
+        except:
+               print("Your journal entries did not load")
         print(journal_content)
 """Load journal entries from the JSON file."""
-
     
-def save_entries(entries: dict[JournalEntry]) -> str:
+
+def save_entries(entries: list[JournalEntry]) :
         with open("journal.json","w") as json_file:
-             json.dump(dict_journal_entry,json_file)
+             json.dump([asdict(entry) for entry in entries],json_file, indent=2)
         """Save journal entries to the JSON file."""
 
     
-def add_entry(title, content) -> str:
-    save_entries(dict_journal_entry)
-    return
-    """Create a new journal entry and save it to the JSON file."""
+"""def add_entry(title: str, content: str): 
+    entries = load_entries()
+    new_entry = JournalEntry(title=title,content=content,date=datetime.now())
+    entries.append(new_entry)
+    save_entries(entries)
+    return"""
 
+    #Create a new journal entry and save it to the JSON file.
     
-def list_entries(entries) -> str:
-    #print(dict_journal_entry)
-    return
-    """Print all journal entries to the console."""
+"""def list_entries(entries) -> str:
+    if not entries:
+          print("No entries found")
+    for entry in entries:
+          print(f"{entry.title}")
+          print(f"{entry.content}")    
+    return"""
 
+    #Print all journal entries to the console.
 
-
-    
 if __name__ == "__main__":
     # quick interactive program (entry point) to validate the above
     title = input("Title: ")
     content = input("Content: ")
     date = input("Today's date: ")
-    add_entry(title, content)
+    #add_entry(title, content)
     print("✅ Entry saved.")
     print("\n📘 Your Journal:")
-    list_entries(load_entries())
+    load_entries()
+    #list_entries(load_entries())
     
    

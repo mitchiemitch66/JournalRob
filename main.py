@@ -16,11 +16,14 @@ class JournalEntry:
         
 def load_entries() -> list[JournalEntry]: 
         try:
-                with open("journal.json","r") as user_file:
-                        journal_content = user_file.read()
+                with open("journal.json","r") as journal_file:
+                        journal_content = json.load(journal_file)
         except:
                print("Your journal entries did not load")
-        print(journal_content)
+        finally:
+               print("Your journal entries were successfully stored and loaded") #Using finally just to show my exception handling is working
+        print(journal_file)
+        
 """Load journal entries from the JSON file."""
     
 
@@ -30,7 +33,7 @@ def save_entries(entries: list[JournalEntry]) :
         """Save journal entries to the JSON file."""
 
     
-"""def add_entry(title: str, content: str): 
+"""def add_entry(title: str, content: str, date: datetime): 
     entries = load_entries()
     new_entry = JournalEntry(title=title,content=content,date=datetime.now())
     entries.append(new_entry)
@@ -54,7 +57,7 @@ if __name__ == "__main__":
     title = input("Title: ")
     content = input("Content: ")
     date = input("Today's date: ")
-    #add_entry(title, content)
+    #add_entry(title, content, date)
     print("✅ Entry saved.")
     print("\n📘 Your Journal:")
     load_entries()

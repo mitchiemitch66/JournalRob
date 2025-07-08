@@ -17,12 +17,13 @@ class JournalEntry:
 def load_entries() -> list[JournalEntry]: 
         try:
                 with open("journal.json","r") as journal_file:
-                        journal_content = json.load(journal_file)
-        except:
+                        journal_content = journal_file.read()
+                        #for data in journal_content:
+        except FileNotFoundError:
                print("Your journal entries did not load")
         finally:
                print("Your journal entries were successfully stored and loaded") #Using finally just to show my exception handling is working
-        print(journal_file)
+        
         
 """Load journal entries from the JSON file."""
     

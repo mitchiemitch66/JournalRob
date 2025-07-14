@@ -28,11 +28,11 @@ def add_entry(title: str, content: str) -> None:
         
         #Create a new journal entry.
 
-def save_entries(entries: list[JournalEntry]):
-        #entries = add_entry()
-        #entries = add_entry(title,content)
-        with open(DB_FILE,"w") as f:
+def save_entries(): #entries: list[JournalEntry]
+        entries = add_entry(title,content)
+        """with open(DB_FILE,"w") as f:
              json.dump(entries,f,indent=2)
+        print(entries)"""
         print(entries)
         return
 """Save journal entries to the JSON file."""
@@ -82,8 +82,8 @@ if __name__ == "__main__":
     content = input("Content: ")
     date = input("Today's date: ")
     add_entry(title,content)
-    entries = add_entry(title,content)
-    save_entries(entries)
+    #entries = add_entry(title,content)
+    save_entries(add_entry())
     print("✅ Entry saved.")
     print("\n📘 Your Journal:")
     #load_entries()

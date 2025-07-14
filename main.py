@@ -17,28 +17,35 @@ class JournalEntry:
 def add_entry(title: str, content: str) -> None:
     new_entry = JournalEntry(title=title,content=content,date=datetime.now())
     new_entry_dict = asdict(new_entry)
-    print(new_entry_dict)
+    new_entry = new_entry_dict
+    #print(new_entry)
+    return
+    #print(entries)
+    
     #entries = load_entries()
     #entries.append(new_entry_dict)
-    return
+
         
         #Create a new journal entry.
 
-def save_entries(entries: list[JournalEntry]) -> None:
+def save_entries(entries: list[JournalEntry]):
+        #entries = add_entry()
+        #entries = add_entry(title,content)
         with open(DB_FILE,"w") as f:
              json.dump(entries,f,indent=2)
-        return 
+        print(entries)
+        return
 """Save journal entries to the JSON file."""
 
 
-def load_entries() -> list[JournalEntry]: 
+"""def load_entries() -> list[JournalEntry]: 
         try:
                 with open(DB_FILE,"r") as f:
                         data = json.load(f)
         except FileNotFoundError:
                         data = []
         finally:
-                print(data)
+                print(data)"""
                #print("Your journal entries were successfully stored and loaded") #Using finally just to show my exception handling is working"""
 """Load journal entries from the JSON file."""
     
@@ -75,10 +82,11 @@ if __name__ == "__main__":
     content = input("Content: ")
     date = input("Today's date: ")
     add_entry(title,content)
-    save_entries(entries=1)
+    entries = add_entry(title,content)
+    save_entries(entries)
     print("✅ Entry saved.")
     print("\n📘 Your Journal:")
-    load_entries()
+    #load_entries()
     #list_entries(load_entries())
     
    

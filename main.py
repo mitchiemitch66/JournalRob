@@ -14,12 +14,12 @@ class JournalEntry:
         content: str
         date: datetime
         
-def add_entry(title: str, content: str) -> None:
+def add_entry(title: str, content: str) -> JournalEntry:
     new_entry = JournalEntry(title=title,content=content,date=datetime.now())
-    new_entry_dict = asdict(new_entry)
-    new_entry = new_entry_dict
+    #new_entry_dict = asdict(new_entry)
+    #new_entry = new_entry_dict
     #print(new_entry)
-    return
+    return new_entry
     #print(entries)
     
     #entries = load_entries()
@@ -28,51 +28,39 @@ def add_entry(title: str, content: str) -> None:
         
         #Create a new journal entry.
 
-def save_entries(): #entries: list[JournalEntry]
-        entries = add_entry(title,content)
-        """with open(DB_FILE,"w") as f:
-             json.dump(entries,f,indent=2)
-        print(entries)"""
-        print(entries)
+def save_entries(title: str, content: str) -> None: #entries: list[JournalEntry] #use asdict() in save_entries function
+        new_entry = add_entry(title,content)
+        with open(DB_FILE,"w") as f:
+             json.dump(asdict(new_entry),f,indent=2,default=str)
+        print("Serialized to JSON")
         return
 """Save journal entries to the JSON file."""
 
 
-"""def load_entries() -> list[JournalEntry]: 
+def load_entries() -> list[JournalEntry]: 
         try:
                 with open(DB_FILE,"r") as f:
                         data = json.load(f)
+                        print("Serizlied JSON data:", data)
         except FileNotFoundError:
                         data = []
         finally:
-                print(data)"""
-               #print("Your journal entries were successfully stored and loaded") #Using finally just to show my exception handling is working"""
+               print("Your journal entries were successfully stored and loaded") #Using finally just to show my exception handling is working"""
 """Load journal entries from the JSON file."""
     
-"""def list_entries(entries: list[JournalEntry]) -> None:
-    if not entries:
+def list_entries(entries: list[JournalEntry]) -> None:
+        entries = load_entries()
+        print("My second test of deserialized entries: ", entries)
+        if not entries:
           print("No entries found")
-    for entry in entries:
-          print(f"{entry.title}")
-          print(f"{entry.content}")    
-    return"""
+        else:
+                for entry in enumerate(entries,1):
+                        print(f"{entry.title}")
+                        print(f"{entry.content}")   
+        return
 
 #Print all journal entries to the console.
 
-
-"""def save_entries(entries: list[JournalEntry]) -> None:
-        with open("journal.json","w") as f:
-             json.dump(json_content,f, indent=2)
-        return"""
-"""Save journal entries to the JSON file."""
-
-"""def list_entries(entries) -> str:
-    if not entries:
-          print("No entries found")
-    for entry in entries:
-          print(f"{entry.title}")
-          print(f"{entry.content}")    
-    return"""
 
     #Print all journal entries to the console.
 
@@ -82,11 +70,10 @@ if __name__ == "__main__":
     content = input("Content: ")
     date = input("Today's date: ")
     add_entry(title,content)
-    #entries = add_entry(title,content)
-    save_entries(add_entry())
+    save_entries(title,content)
     print("✅ Entry saved.")
     print("\n📘 Your Journal:")
-    #load_entries()
-    #list_entries(load_entries())
+    load_entries()
+    list_entries(load_entries())
     
    

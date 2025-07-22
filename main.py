@@ -21,12 +21,14 @@ def add_entry(title: str, content: str) -> JournalEntry:
     #print(new_entry)
     return new_entry
     #print(entries)
-    
-    #entries = load_entries()
-    #entries.append(new_entry_dict)
 
-        
-        #Create a new journal entry.
+"""def add_entry(self, title: str, content: str, tags: list[str]) -> None:
+        entry = JournalEntry(title=title, content=content, tags=tags)
+        entries = self.load_entries()
+        entries.append(entry)
+        self.save_entries(entries)"""
+    
+
 
 def save_entries(title: str, content: str) -> None: #entries: list[JournalEntry] #use asdict() in save_entries function
         new_entry = add_entry(title,content)
@@ -71,8 +73,8 @@ if __name__ == "__main__":
     date = input("Today's date: ")
     add_entry(title,content)
     save_entries(title,content)
-    print("✅ Entry saved.")
-    print("\n📘 Your Journal:")
+    #print("✅ Entry saved.")
+    #print("\n📘 Your Journal:")
     load_entries()
     list_entries(load_entries())
     

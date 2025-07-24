@@ -16,9 +16,9 @@ class JournalEntry:
         
 def add_entry(title: str, content: str) -> JournalEntry:
     new_entry = JournalEntry(title=title,content=content,date=datetime.now())
-    entries = load_entries()
-    entries.append(new_entry)
-    save_entries(entries)
+    #entries = load_entries()
+    #entries.append(new_entry)
+    #save_entries(title,content)
     #new_entry_dict = asdict(new_entry)
     #new_entry = new_entry_dict
     #print(new_entry)
@@ -29,7 +29,8 @@ def add_entry(title: str, content: str) -> JournalEntry:
         entry = JournalEntry(title=title, content=content, tags=tags)
         entries = self.load_entries()
         entries.append(entry)
-        self.save_entries(entries)"""
+        self.save_entries(entries)
+        return"""
     
 
 

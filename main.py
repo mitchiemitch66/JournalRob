@@ -34,11 +34,13 @@ def add_entry(title: str, content: str) -> JournalEntry:
     
 
 
-def save_entries(title: str, content: str) -> None: #entries: list[JournalEntry] #use asdict() in save_entries function
-        new_entry = add_entry(title,content)
+def save_entries(entry: JournalEntry) -> None: #entries: list[JournalEntry] #use asdict() in save_entries function
+        entries = load_entries()
+        entries.append(entry)
+        #new_entry = add_entry(title,content)
         with open(DB_FILE,"w") as f:
-             json.dump(asdict(new_entry),f,indent=2,default=str)
-        print("Serialized to JSON")
+             json.dump([asdict(e) for e in entries],f,indent=2,default=str)
+        print("New entry saved")
         return
 """Save journal entries to the JSON file."""
 
@@ -47,9 +49,10 @@ def load_entries() -> list[JournalEntry]:
         try:
                 with open(DB_FILE,"r") as f:
                         data = json.load(f)
-                        print("Serialized JSON data:", data)
-        except FileNotFoundError:
-                        data = []
+                        #print("Serialized JSON data:", data)
+                        return [JournalEntry(**entry) for entry in data]
+        except (json.JSONDecodeError):
+                        return []
         finally:
                print("Your journal entries were successfully stored and loaded") #Using finally just to show my exception handling is working"""
 """Load journal entries from the JSON file."""
@@ -63,7 +66,14 @@ def load_entries() -> list[JournalEntry]:
 
     
 def list_entries(entries: list[JournalEntry]) -> None:
-        entries = load_entries()
+        #entries = load_entries()
+        if not entries:
+                print("No journal entries")
+        for i, entry in enumerate(entries, 1):
+                print(f"\n Journal Entry {i}")
+                print(f"Title: {entry.title}")
+                print(f"Content: {entry.content}")
+                print(f"Date: {entry.date}")
         print("Your journal entry was loaded again")
         
         
@@ -90,11 +100,17 @@ if __name__ == "__main__":
     title = input("Title: ")
     content = input("Content: ")
     date = input("Today's date: ")
-    add_entry(title,content)
-    save_entries(title,content)
+    
+    new_entry = add_entry(title,content)
+    save_entries(new_entry)
+    
+    """#new_entry(title,content)
+    #save_entries(title,content)"""
     #print("✅ Entry saved.")
     #print("\n📘 Your Journal:")
-    list_entries(load_entries())
+    
+    total_entries = load_entries()
+    list_entries(total_entries())
     #new_entry(load_entries())
 
    
